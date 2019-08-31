@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post">
+
+  <!-- 게시판 번호에 맞는 게시글 페이징 조회 -->
+  <select id="getPostList" parameterType="map" resultType="post">
+		select a.*
+		from
+		(select rownum rn, a.*
+		 from
+		    (select POSTNO, PARENTPOSTNO, lpad(' ', (level-1)*4, ' ') || POSTTITLE POSTTITLE, USERID, POSTWDATE, level
+		      from HIBOARD_POST a
+		      where BOARDNO = #{boardNo}
+		     start with PARENTPOSTNO is null
+		     connect by prior POSTNO = PARENTPOSTNO
+		     order SIBLINGS by POSTGN desc, POSTNO) a) a
+		where rn between (#{page}-1)*#{pagesize}+1 and #{page}*#{pagesize}
+  </select>
+
+  <!-- 게시글 상세 정보 조회 -->
+  <select id="getPost" parameterType="Integer" resultType="post">
+  	select * from hiboard_post where postno = #{postno}
+  </select>
+
+  <!-- 신규, 답글 게시글 등록 -->
+  <insert id="insertPost" parameterType="post">
+  	INSERT INTO HIBOARD_POST
+  		VALUES(hiboard_post_SEQ.NEXTVAL, #{boardno}, #{posttitle}, #{postcontent}, #{userid}, sysdate, 0, case when NVL(#{postgn},0) = 0 then hiboard_post_SEQ.currval else #{postgn} end, case when NVL(#{parentpostno},0) = 0 then NULL else #{parentpostno} end)
+  </insert>
+
+  <!-- 신규 게시글의 게시글 번호 조회 -->
+  <select id="getPostNo" resultType="Integer">
+  	select max(postNo) from HIBOARD_POST
+  </select>
+
+  <!-- 게시글 삭제 -->
+  <update id="deletePost" parameterType="Integer">
+  	update HIBOARD_POST set DELETEYN = 1 where postno = #{postno}
+  </update>
+
+  <!-- 게시글 수정 -->
+  <update id="updatePost" parameterType="post">
+  	update HIBOARD_POST set posttitle = #{posttitle}, postcontent = #{postcontent} where postno = #{postno}
+  </update>
+
+  <!-- File -->
+  <!-- 게시글 첨부파일 등록 -->
+  <insert id="insertPostFile" parameterType="postFile">
+  	INSERT INTO HIBOARD_POSTFILE VALUES(hiboard_postFile_SEQ.NEXTVAL, #{filename}, #{realfilename}, hiboard_post_SEQ.CURRVAL)
+  </insert>
+
+  <!-- 게시글 번호에 맞는 파일 조회 -->
+  <select id="getPostFileList" parameterType="Integer" resultType="postFile">
+  	select * from HIBOARD_POSTFILE where postno = #{postno}
+  </select>
+
+</mapper>

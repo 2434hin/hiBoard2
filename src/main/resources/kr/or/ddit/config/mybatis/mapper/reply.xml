@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reply">
+
+  <!-- 댓글 등록 -->
+  <insert id="insertReply" parameterType="reply">
+  	INSERT INTO HIBOARD_REPLY VALUES(hiboard_reply_SEQ.NEXTVAL, #{postno}, #{replycontent}, #{userid}, sysdate, 0)
+  </insert>
+
+  <!-- 게시글 번호에 맞는 댓글 조회 -->
+  <select id="getReplyList" parameterType="Integer" resultType="reply">
+  	select * from HIBOARD_REPLY where postno = #{postno}
+  </select>
+
+  <!-- 댓글 삭제 -->
+  <update id="deleteReply" parameterType="Integer">
+  	update HIBOARD_REPLY set DELETEYN = 1 where REPLYTNO = #{replyno}
+  </update>
+</mapper>
