@@ -161,5 +161,39 @@ public class PostService implements IPostService {
 		return updatePost;
 	}
 
+	/**
+	 * 
+	 * Method : delet1eFile
+	 * 작성자 : user
+	 * 변경이력 :
+	 * @param fileNo
+	 * @return
+	 * Method 설명 : 파일 삭제
+	 */
+	@Override
+	public int deleteFile(int fileNo) {
+		SqlSession sqlSession = MybatisUtil.getSession();
+		int deleteFile = postDao.deleteFile(sqlSession, fileNo);
+		sqlSession.commit();
+		sqlSession.close();
+		return deleteFile;
+	}
+
+	/**
+	 * 
+	 * Method : getPostTotalCnt
+	 * 작성자 : user
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 전체 게시글 거수 조회
+	 */
+	@Override
+	public int getPostTotalCnt() {
+		SqlSession sqlSession = MybatisUtil.getSession();
+		int postTotalCnt = postDao.getPostTotalCnt(sqlSession);
+		sqlSession.close();
+		return postTotalCnt;
+	}
+
 
 }

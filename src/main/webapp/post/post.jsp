@@ -49,7 +49,7 @@
 
 		$(".replySpan").on('click', function () {
 
-			var dataValue = $(this).data("replyno");
+			var dataValue = $(this).data('replyno');
 
 			$('#replyNo').val(dataValue)
 
@@ -145,7 +145,7 @@
 							<td>댓글</td>
 							<td>
 								<div class="col-sm-8">
-									<input type="text" id="postReply" class="form-control" name="postReply"/>
+									<input type="text" id="postReply" class="form-control" name="postReply" maxlength="500"/>
 									<input type="hidden" id="postNo" name="postNo" value="${post.postno }"/>
 								</div>
 								<div class="col-sm-2">
@@ -168,7 +168,14 @@
 									</c:choose>
 									</div>
 									<div class="col-sm-4">
-										<label>&nbsp;&nbsp;&nbsp;&nbsp;[${reply.userid} / ${reply.replywdateFmt}]&nbsp;&nbsp;<span class="replySpan glyphicon glyphicon-remove" data-replyNo="${reply.replytno}" ></span></label>
+										<c:choose>
+											<c:when test="${reply.userid == S_USERVO.userId }">
+												<label>&nbsp;&nbsp;&nbsp;&nbsp;[${reply.userid} / ${reply.replywdateFmt}]&nbsp;&nbsp;<span class="replySpan glyphicon glyphicon-remove" data-replyNo="${reply.replytno}" ></span></label>
+											</c:when>
+											<c:otherwise>
+												<label>&nbsp;&nbsp;&nbsp;&nbsp;[${reply.userid} / ${reply.replywdateFmt}]</label>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</td>
 							</tr>

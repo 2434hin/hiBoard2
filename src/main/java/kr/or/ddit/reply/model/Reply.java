@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Reply {
 
-	private int replytno;			// 댓글 번호
+	private int replyno;			// 댓글 번호
 	private int postno;				// 게시글 번호
 	private String replycontent;	// 댓글 내용
 	private String userid;			// 작성자
@@ -21,10 +21,10 @@ public class Reply {
 		this.userid = userId;
 	}
 	public int getReplytno() {
-		return replytno;
+		return replyno;
 	}
-	public void setReplytno(int replytno) {
-		this.replytno = replytno;
+	public void setReplytno(int replyno) {
+		this.replyno = replyno;
 	}
 	public int getPostno() {
 		return postno;

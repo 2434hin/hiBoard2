@@ -25,8 +25,8 @@ public class DeleteReplyController extends HttpServlet {
 		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
 
-		System.out.println(replyNo);
 		replyService.deleteReply(replyNo);
+		
 
 		response.sendRedirect(request.getContextPath() + "/post?postNo=" + postNo);
 	}

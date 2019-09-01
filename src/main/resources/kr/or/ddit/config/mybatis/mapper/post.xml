@@ -44,16 +44,27 @@
   <update id="updatePost" parameterType="post">
   	update HIBOARD_POST set posttitle = #{posttitle}, postcontent = #{postcontent} where postno = #{postno}
   </update>
+  
+  <!-- 전체 게시글 건수 조회 -->
+  <select id="getPostTotalCnt" resultType="Integer">
+  	select count(*) from HIBOARD_POST
+  </select>
 
   <!-- File -->
   <!-- 게시글 첨부파일 등록 -->
   <insert id="insertPostFile" parameterType="postFile">
-  	INSERT INTO HIBOARD_POSTFILE VALUES(hiboard_postFile_SEQ.NEXTVAL, #{filename}, #{realfilename}, hiboard_post_SEQ.CURRVAL)
+  	INSERT INTO HIBOARD_POSTFILE 
+  		VALUES(hiboard_postFile_SEQ.NEXTVAL, #{filename}, #{realfilename}, case when NVL(#{postno},0) = 0 then hiboard_post_SEQ.CURRVAL else #{postno} end)
   </insert>
 
   <!-- 게시글 번호에 맞는 파일 조회 -->
   <select id="getPostFileList" parameterType="Integer" resultType="postFile">
   	select * from HIBOARD_POSTFILE where postno = #{postno}
   </select>
+  
+  <!-- 파일 삭제 -->
+  <delete id="deleteFile" parameterType="Integer">
+  	delete from HIBOARD_POSTFILE where fileno = #{fileno}
+  </delete>
 
 </mapper>

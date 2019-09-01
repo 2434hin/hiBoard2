@@ -49,9 +49,11 @@ public class BoardPostController extends HttpServlet {
         paramter.put("pagesize", pagesize);
         paramter.put("boardNo", boardNo);
 
-
+        
         List<Post> postList = postService.getPostList(paramter);
-        int paginationSize = (int)Math.ceil((double)postList.size() / pagesize);
+        int totalCnt = postService.getPostTotalCnt();
+        
+        int paginationSize = (int)Math.ceil((double)totalCnt / pagesize);
 
 		request.setAttribute("postList", postList);
 		request.setAttribute("paginationSize", paginationSize);

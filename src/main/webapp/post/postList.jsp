@@ -119,7 +119,7 @@
 									</c:when>
 									<c:otherwise>
 										<li>
-									      <a href="${cp }/userPagingList?page=${page-1 }" aria-label="Previous">
+									      <a href="${cp }/boardPost?page=${page-1 }&boardno=${board.boardno}" aria-label="Previous">
 									        <span aria-hidden="true">&laquo;</span>
 									      </a>
 									    </li>
@@ -133,7 +133,7 @@
 											<li	class="active"><span>${pageSize }</span></li>
 										</c:when>
 										<c:otherwise>
-											<li><a href="${cp }/userPagingList?page=${pageSize }">${pageSize }</a></li>
+											<li><a href="${cp }/boardPost?page=${pageSize }&boardno=${board.boardno}">${pageSize }</a></li>
 										</c:otherwise>
 									</c:choose>
 
@@ -149,7 +149,7 @@
 									</c:when>
 									<c:otherwise>
 										<li>
-									      <a href="${cp }/userPagingList?page=${page+1 }" aria-label="Next">
+									      <a href="${cp }/boardPost?page=${page+1 }&boardno=${board.boardno}" aria-label="Next">
 									        <span aria-hidden="true">&raquo;</span>
 									      </a>
 									    </li>

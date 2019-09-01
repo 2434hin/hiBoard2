@@ -48,7 +48,6 @@ public class InsertPostController extends HttpServlet {
 		String postTitle = request.getParameter("postTitle");				// 게시글 제목
 		String postContent = request.getParameter("postContent");			// 게시글 내용
 		String parentpostno = request.getParameter("parentpostno");			// 부모게시글 번호
-		String postgn = request.getParameter("postGn");						// 그룹 번호
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("S_USERVO");

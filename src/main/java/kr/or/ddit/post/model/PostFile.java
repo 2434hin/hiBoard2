@@ -8,10 +8,20 @@ public class PostFile {
 	private int postno;				// 게시글 번호
 
 	public PostFile() {}
+	
+	// 신규 게시글 작성 시 파일 저장
 	public PostFile(String filename, String realfilename) {
 		this.filename = filename;
 		this.realfilename = realfilename;
 	}
+	
+	// 게시글 수정 시 파일 저장
+	public PostFile(String filename, String path, int postNo) {
+		this.filename = filename;
+		this.realfilename = path;
+		this.postno = postNo;
+	}
+	
 	public int getFileno() {
 		return fileno;
 	}

@@ -52,6 +52,15 @@
 				}
 			}
 		})
+		
+		$(".fileSpan").on('click', function () {
+
+			var dataValue = $(this).data('fileno');
+			
+			$('#fileNo').val(dataValue)
+
+			$('#deleteFileForm').submit();
+		})
 	});
 
 	// 필수값 Check
@@ -80,6 +89,12 @@
 
 <body>
 
+	<!-- 파일 삭제 -->
+	<form id="deleteFileForm" action="${cp }/deletePost" method="post">
+		<input type="hidden" id="fileNo" name="fileNo"/>
+		<input type="hidden" id="postNo" name="postNo" value="${post.postno }"/>
+	</form>
+	
 	<!-- header -->
 	<%@ include file="/commonJsp/header.jsp"%>
 
@@ -114,9 +129,13 @@
 						<c:forEach items="${fileList}" var="postFile">
 							<tr>
 								<td></td>
-								<td>${postFile.filename}</td>
+								<td>${postFile.filename}&nbsp;&nbsp;<span class="fileSpan glyphicon glyphicon-remove" data-fileNo="${postFile.fileno}" ></span></td>
 							</tr>
 						</c:forEach>
+						<tr>
+							<td>첨부파일</td>
+							<td><input type="file" multiple="multiple" id="file" name="file"/></td>
+						</tr>
 						<tr>
 							<td></td>
 							<td id="button"><input type="button" id="updateButton" class="btn btn-default pull-right" value="수정" /></td>

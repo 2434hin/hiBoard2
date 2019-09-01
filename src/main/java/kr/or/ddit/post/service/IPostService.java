@@ -95,5 +95,26 @@ public interface IPostService {
 	 */
 	int updatePost(Post post);
 
+	/**
+	 * 
+	 * Method : delet1eFile
+	 * 작성자 : user
+	 * 변경이력 :
+	 * @param fileNo
+	 * @return
+	 * Method 설명 : 파일 삭제
+	 */
+	int deleteFile(int fileNo);
+
+	/**
+	 * 
+	 * Method : getPostTotalCnt
+	 * 작성자 : user
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 전체 게시글 건수 조회
+	 */
+	int getPostTotalCnt();
+
 
 }

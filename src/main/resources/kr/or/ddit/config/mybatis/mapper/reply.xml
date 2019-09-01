@@ -11,11 +11,11 @@
 
   <!-- 게시글 번호에 맞는 댓글 조회 -->
   <select id="getReplyList" parameterType="Integer" resultType="reply">
-  	select * from HIBOARD_REPLY where postno = #{postno}
+  	select * from hiboard_reply where postno = #{postno} order by replyno desc
   </select>
 
   <!-- 댓글 삭제 -->
   <update id="deleteReply" parameterType="Integer">
-  	update HIBOARD_REPLY set DELETEYN = 1 where REPLYTNO = #{replyno}
+  	update HIBOARD_REPLY set DELETEYN = 1 where replyNo = #{replyno}
   </update>
 </mapper>
